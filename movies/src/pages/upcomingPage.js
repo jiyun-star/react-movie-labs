@@ -7,7 +7,7 @@ import AddToPlaylistIcon from '../components/cardIcons/addToPlaylist'
 
 const UpcomingPage = (props) => {
 
-  const {  data, error, isLoading, isError }  = useQuery('discover', getUpcoming)
+  const {  data, error, isLoading, isError }  = useQuery('upcoming', getUpcoming)
 
   if (isLoading) {
     return <Spinner />
@@ -25,7 +25,7 @@ const UpcomingPage = (props) => {
 
   return (
     <PageTemplate
-      title="upcoming Movies"
+      title="Upcoming Movies"
       movies={movies}
       action={(movie) => {
         return <AddToPlaylistIcon movie={movie} />
