@@ -25,9 +25,10 @@ const SiteHeader = ({ history }) => {
 
   const menuOptions = [
     { label: "Home", path: "/" },
-    { label: "Favorites", path: "/movies/favorites" },
     { label: "Upcoming", path: "/movies/upcoming" },
     { label: "Top Rated", path: "/movies/toprated" },
+    { label: "Favorites", path: "/movies/favorites" },
+    { label: "Watch later", path: "/movies/watchlater" },
   ];
 
   const handleMenuSelect = (pageURL) => {
@@ -43,11 +44,9 @@ const SiteHeader = ({ history }) => {
       <AppBar position="fixed" color="secondary">
         <Toolbar>
           <Typography variant="h4" sx={{ flexGrow: 1 }}>
-            TMDB Client
+            Jmovies
           </Typography>
-          <Typography variant="h6" sx={{ flexGrow: 1 }}>
-            All you ever wanted to know about Movies!
-          </Typography>
+
             {isMobile ? (
               <>
                 <IconButton

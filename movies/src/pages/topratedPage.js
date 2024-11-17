@@ -3,6 +3,7 @@ import { gettoprated } from "../api/tmdb-api";
 import PageTemplate from '../components/templateMovieListPage';
 import { useQuery } from 'react-query';
 import Spinner from '../components/spinner';
+import AddToFavoritesIcon from '../components/cardIcons/addToFavorites'
 import AddToPlaylistIcon from '../components/cardIcons/addToPlaylist'
 
 const TopratedPage = (props) => {
@@ -28,7 +29,12 @@ const TopratedPage = (props) => {
       title="Top-Rated Movies"
       movies={movies}
       action={(movie) => {
-        return <AddToPlaylistIcon movie={movie} />
+        return (
+          <>
+          <AddToFavoritesIcon movie={movie} />
+          <AddToPlaylistIcon movie={movie} />
+          </>
+        );
       }}
     />
 );
