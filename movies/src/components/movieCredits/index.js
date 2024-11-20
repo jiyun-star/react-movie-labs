@@ -1,15 +1,13 @@
 
 import Chip from "@mui/material/Chip";
-import Paper from "@mui/material/Paper";
-import AccessTimeIcon from "@mui/icons-material/AccessTime";
-import MonetizationIcon from "@mui/icons-material/MonetizationOn";
-import StarRate from "@mui/icons-material/StarRate";
-import NavigationIcon from "@mui/icons-material/Navigation";
-import Fab from "@mui/material/Fab";
+import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import CardHeader from "@mui/material/CardHeader";
 import Typography from "@mui/material/Typography";
 import React, { useState } from "react";
-import Drawer from "@mui/material/Drawer";
-import MovieReviews from "../movieReviews"
+import img from '../../images/film-poster-placeholder.png'
 
 
 const root = {
@@ -28,23 +26,30 @@ const MovieCredits = ({ movie }) => {  // Don't miss this!
       <Typography variant="h5" component="h3">
         cast
       </Typography>
-
-      <Paper 
-        component="ul" 
-        sx={{...root}}
-      >
-        <li>
-          <Chip label="cast" sx={{...chip}} color="primary" />
-        </li>
-        {movie.cast.map((g) => (
-          <li key={g.name}>
-            <Chip label={g.name} sx={{...chip}} />
-          </li>
+      <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+      {movie.cast.map((g) => (
+      <Card key={g.name}>
+      <CardMedia
+       sx={{ height: 200, width: 150 }}
+        image={
+         g.profile_path
+        ? `https://image.tmdb.org/t/p/w500/${g.profile_path}`
+        : img}
+        />
+        <CardContent> {g.name} </CardContent>
+         {/* /* <CardActions disableSpacing>
+        {action(movie)}
+        <Link to={`/movies/${movie.id}`}>
+          <Button variant="outlined" size="medium" color="primary">
+            More Info ...
+          </Button>
+        </Link>
+      </CardActions> */ }
+  </Card>
         ))}
-      </Paper>
-
-      </>
-      
+        </div>
+    </>
   );
 };
+
 export default MovieCredits ;
