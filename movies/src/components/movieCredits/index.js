@@ -26,17 +26,22 @@ const MovieCredits = ({ movie }) => {  // Don't miss this!
       <Typography variant="h5" component="h3">
         cast
       </Typography>
-      <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+      <div style={{ display: 'flex', flexWrap: 'wrap'}}>
       {movie.cast.map((g) => (
-      <Card key={g.name}>
+      <Card sx={{ margin: '20px'}} key={g.name}>
       <CardMedia
-       sx={{ height: 200, width: 150 }}
+       sx={{ height: 300, width: 200 }}
         image={
          g.profile_path
         ? `https://image.tmdb.org/t/p/w500/${g.profile_path}`
         : img}
         />
-        <CardContent> {g.name} </CardContent>
+        <CardContent> 
+        <Typography variant="h6" component="h3">
+          {g.name} 
+          </Typography>
+          {g.character}
+          </CardContent>
          {/* /* <CardActions disableSpacing>
         {action(movie)}
         <Link to={`/movies/${movie.id}`}>
