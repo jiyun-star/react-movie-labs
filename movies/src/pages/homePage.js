@@ -4,7 +4,7 @@ import PageTemplate from '../components/templateMovieListPage';
 import { useQuery } from 'react-query';
 import Spinner from '../components/spinner';
 import AddToFavoritesIcon from '../components/cardIcons/addToFavorites'
-import AddToPlaylistIcon from '../components/cardIcons/addToPlaylist'
+import AddToPlaylistIcon from '../components/cardIcons/addToPlaylists'
 
 
 const HomePage = (props) => {
@@ -19,9 +19,9 @@ const HomePage = (props) => {
   }  
   const movies = data.results;
   const favorites = movies.filter(m => m.favorite)
-  const watchlater = movies.filter(m => m.watchlater)
+  const playlists = movies.filter(m => m.playlists)
   localStorage.setItem('favorites', JSON.stringify(favorites))
- // localStorage.setItem('watchlaters', JSON.stringify(watchlaters))
+  localStorage.setItem('playlists', JSON.stringify(playlists))
 
  
   const addToFavorites = (movieId) => true 
