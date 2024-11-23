@@ -4,10 +4,14 @@ import FilterCard from "../filterMoviesCard";
 import MovieList from "../movieList";
 import Grid from "@mui/material/Grid2";
 
-function MovieListPageTemplate({ movies, title, action  }) {
+function MovieListPageTemplate({ movies, title, action }) {
   const [nameFilter, setNameFilter] = useState("");
   const [genreFilter, setGenreFilter] = useState("0");
+  const [countryFilter, setCountryFilter] = useState("0");
+  const [yearFilter, setYearFilter] = useState("0");
   const genreId = Number(genreFilter);
+
+
 
   let displayedMovies = movies
     .filter((m) => {
@@ -15,10 +19,14 @@ function MovieListPageTemplate({ movies, title, action  }) {
     })
     .filter((m) => {
       return genreId > 0 ? m.genre_ids.includes(genreId) : true;
-    });
+    })
+    .filter((m) => {
+      return m.release_date.toLowerCase().search(yearFilter.toLowerCase()) !== -1;    });
+
 
   const handleChange = (type, value) => {
     if (type === "name") setNameFilter(value);
+    if (type === "year") setYearFilter(value);
     else setGenreFilter(value);
   };
 
@@ -37,6 +45,7 @@ function MovieListPageTemplate({ movies, title, action  }) {
             onUserInput={handleChange}
             titleFilter={nameFilter}
             genreFilter={genreFilter}
+            yearFilter={yearFilter}
           />
         </Grid>
         <MovieList action={action} movies={displayedMovies}></MovieList>

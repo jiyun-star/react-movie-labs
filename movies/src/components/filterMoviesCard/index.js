@@ -25,7 +25,6 @@ const formControl =
 export default function FilterMoviesCard(props) {
 
   const { data, error, isLoading, isError } = useQuery("genres", getGenres);
-
   if (isLoading) {
     return <Spinner />;
   }
@@ -34,9 +33,11 @@ export default function FilterMoviesCard(props) {
     return <h1>{error.message}</h1>;
   }
   const genres = data.genres;
-  if (genres[0].name !== "All"){
-    genres.unshift({ id: "0", name: "All" });
+  if (genres[0].name !== "Genre"){
+    genres.unshift({ id: "0", name: "Genre" });
   }
+
+
 
   const handleChange = (e, type, value) => {
     e.preventDefault();
@@ -50,29 +51,34 @@ export default function FilterMoviesCard(props) {
   const handleGenreChange = (e) => {
     handleChange(e, "genre", e.target.value);
   };
+
+  const handleYearChange = (e) => {
+    handleChange(e, "year", e.target.value);
+  };
   
   return (
     <Card 
       sx={{
-        backgroundColor: "rgb(204, 204, 0)"
+        backgroundColor: "#0080FF"
       }} 
       variant="outlined">
       <CardContent>
+
         <Typography variant="h5" component="h1">
           <SearchIcon fontSize="large" />
           Filter the movies.
         </Typography>
+       
         <TextField
       sx={{...formControl}}
       id="filled-search"
-      label="Search field"
+      label="Search title"
       type="search"
       variant="filled"
       value={props.titleFilter}
       onChange={handleTextChange}
     />
         <FormControl sx={{...formControl}}>
-          <InputLabel id="genre-label">Genre</InputLabel>
           <Select
     labelId="genre-label"
     id="genre-select"
@@ -89,18 +95,28 @@ export default function FilterMoviesCard(props) {
             })}
           </Select>
         </FormControl>
-      </CardContent>
-      <CardMedia
-        sx={{ height: 300 }}
-        image={img}
-        title="Filter"
-      />
-      <CardContent>
-        <Typography variant="h5" component="h1">
-          <SearchIcon fontSize="large" />
-          Filter the movies.
-          <br />
-        </Typography>
+
+        {/* <FormControl sx={{...formControl}}>
+          <InputLabel id="year-label">Year</InputLabel>
+          <Select
+    labelId="year-label"
+    id="year-select"
+    defaultValue=""
+    value={props.yearFilter}
+    onChange={handleYearChange}
+  >
+            {years.map((year) => {
+              return (
+                <MenuItem key={year.id} value={year.id}>
+                  {year.name}
+                </MenuItem>
+              );
+            })}
+          </Select>
+        </FormControl> */}
+
+
+
       </CardContent>
     </Card>
   );

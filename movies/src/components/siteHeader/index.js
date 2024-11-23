@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 import { styled } from '@mui/material/styles';
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import { Link } from "react-router-dom";
 
 const Offset = styled('div')(({ theme }) => theme.mixins.toolbar);
 
@@ -24,7 +25,6 @@ const SiteHeader = ({ history }) => {
   const navigate = useNavigate();
 
   const menuOptions = [
-    { label: "Home", path: "/" },
     { label: "Upcoming", path: "/movies/upcoming" },
     { label: "Top Rated", path: "/movies/toprated" },
     { label: "Favorites", path: "/movies/favorites" },
@@ -41,11 +41,13 @@ const SiteHeader = ({ history }) => {
 
   return (
     <>
-      <AppBar position="fixed" color="secondary">
+      <AppBar position="fixed" sx={{ backgroundColor: "#0431B4" }}>
         <Toolbar>
-          <Typography variant="h4" sx={{ flexGrow: 1 }}>
-            Jmovies
+        <Link to="/"  style={{ textDecoration: 'none', color: 'inherit' }}>  
+          <Typography variant="h4" sx={{ flexGrow: 1, fontFamily: "Roboto", }}>
+            Jmovies   
           </Typography>
+          </Link>
 
             {isMobile ? (
               <>
