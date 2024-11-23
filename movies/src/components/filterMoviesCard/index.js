@@ -14,6 +14,7 @@ import React, {useState, useEffect}  from "react";
 import { getGenres } from "../../api/tmdb-api";
 import { useQuery } from "react-query";
 import Spinner from '../spinner'
+import { getMovie } from "../../api/tmdb-api";
 
 const formControl = 
   {
@@ -25,6 +26,7 @@ const formControl =
 export default function FilterMoviesCard(props) {
 
   const { data, error, isLoading, isError } = useQuery("genres", getGenres);
+  
   if (isLoading) {
     return <Spinner />;
   }
@@ -32,11 +34,20 @@ export default function FilterMoviesCard(props) {
   if (isError) {
     return <h1>{error.message}</h1>;
   }
+
   const genres = data.genres;
   if (genres[0].name !== "Genre"){
     genres.unshift({ id: "0", name: "Genre" });
   }
+  const languages = [
+   { id: "0", name: "All languages"},
+   { id: "en", name: "English"},
+   { id: "fr", name: "French"},
+   { id: "es", name: "Spanish"},
+   { id: "ko", name: "Korean"},
+   { id: "ja", name: "Japanese"},
 
+  ]
 
 
   const handleChange = (e, type, value) => {
@@ -52,8 +63,8 @@ export default function FilterMoviesCard(props) {
     handleChange(e, "genre", e.target.value);
   };
 
-  const handleYearChange = (e) => {
-    handleChange(e, "year", e.target.value);
+  const handlelanguageChange = (e) => {
+    handleChange(e, "language", e.target.value);
   };
   
   return (
@@ -64,8 +75,8 @@ export default function FilterMoviesCard(props) {
       variant="outlined">
       <CardContent>
 
-        <Typography variant="h5" component="h1">
-          <SearchIcon fontSize="large" />
+        <Typography variant="h5" component="h1" fontFamily="roboto">
+          <SearchIcon fontSize="medium" />
           Filter the movies.
         </Typography>
        
@@ -78,14 +89,33 @@ export default function FilterMoviesCard(props) {
       value={props.titleFilter}
       onChange={handleTextChange}
     />
+
+            <FormControl sx={{...formControl}}>
+            <Select
+                labelId="language-label"
+                id="filled-search"
+                defaultValue=""
+                value={props.languageFilter}
+                onChange={handlelanguageChange}
+              >
+                {languages.map((language) => {
+              return (
+                <MenuItem key={language.id} value={language.id}>
+                  {language.name}
+                </MenuItem>
+              );
+            })}
+              
+              </Select>
+              </FormControl>
         <FormControl sx={{...formControl}}>
           <Select
-    labelId="genre-label"
-    id="genre-select"
-    defaultValue=""
-    value={props.genreFilter}
-    onChange={handleGenreChange}
-  >
+            labelId="genre-label"
+            id="genre-select"
+            defaultValue=""
+            value={props.genreFilter}
+            onChange={handleGenreChange}
+          >
             {genres.map((genre) => {
               return (
                 <MenuItem key={genre.id} value={genre.id}>
@@ -95,27 +125,6 @@ export default function FilterMoviesCard(props) {
             })}
           </Select>
         </FormControl>
-
-        {/* <FormControl sx={{...formControl}}>
-          <InputLabel id="year-label">Year</InputLabel>
-          <Select
-    labelId="year-label"
-    id="year-select"
-    defaultValue=""
-    value={props.yearFilter}
-    onChange={handleYearChange}
-  >
-            {years.map((year) => {
-              return (
-                <MenuItem key={year.id} value={year.id}>
-                  {year.name}
-                </MenuItem>
-              );
-            })}
-          </Select>
-        </FormControl> */}
-
-
 
       </CardContent>
     </Card>
