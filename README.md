@@ -13,9 +13,7 @@ This is a react movie app for my web app module. I added a language filtering fu
 + Top Rated Page created 
 +  Watch later created
 +   language filter created
-  
-## Setup requirements.
-npm install
+
 
 ## API endpoints.
 - discover upcoming movies - /movie/upcoming
